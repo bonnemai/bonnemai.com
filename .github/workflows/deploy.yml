@@ -30,7 +30,6 @@ jobs:
           role-session-name: GitHubActionsDeployment
 
       - name: Sync files to S3
-        environment: prd
         run: |
           aws s3 sync . "s3://${S3_BUCKET}" \
             --delete \
