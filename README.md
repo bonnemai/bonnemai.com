@@ -49,3 +49,19 @@ via *Run workflow*). The workflow authenticates with AWS via GitHub OIDC—set a
 repository secret `AWS_DEPLOY_ROLE_ARN` containing the ARN of an IAM role that
 allows `s3:ListBucket`, `s3:PutObject`, `s3:DeleteObject` on `bonnemai.com` and
 trusts `token.actions.githubusercontent.com`.
+
+#### Provisioning the IAM role
+
+Use `scripts/provision_github_deploy_role.sh` to create or update the IAM role
+expected by the workflow.
+
+```bash
+# customise via ROLE_NAME, BUCKET_NAME, GITHUB_REPO, GITHUB_BRANCH if needed
+./scripts/provision_github_deploy_role.sh
+```
+
+The script will:
+- create the GitHub OIDC provider if it does not already exist
+- create/update the IAM role trust policy to allow the specified repo/branch
+- attach an inline policy with the required S3 permissions
+- output the role ARN to copy into the `AWS_DEPLOY_ROLE_ARN` repository secret

@@ -23,12 +23,14 @@ jobs:
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
+        environment: prd
         with:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActionsDeployment
 
       - name: Sync files to S3
+        environment: prd
         run: |
           aws s3 sync . "s3://${S3_BUCKET}" \
             --delete \
