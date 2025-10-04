@@ -8,7 +8,7 @@ set -euo pipefail
 # Customise via environment variables before running:
 #   ROLE_NAME         Name for the IAM role (default: github-deploy-static-site)
 #   BUCKET_NAME       Target S3 bucket (default: bonnemai.com)
-#   GITHUB_REPO       GitHub repo in owner/name form (default: olivierbonnemaison/web_site)
+#   GITHUB_REPO       GitHub repo in owner/name form (auto-detected from git remote, fallback: olivierbonnemaison/web_site)
 #   GITHUB_BRANCH     Branch that may assume the role (default: main)
 #
 # Example:
@@ -16,7 +16,32 @@ set -euo pipefail
 
 ROLE_NAME=${ROLE_NAME:-github-deploy-static-site}
 BUCKET_NAME=${BUCKET_NAME:-bonnemai.com}
-GITHUB_REPO=${GITHUB_REPO:-olivierbonnemaison/web_site}
+
+DEFAULT_REPO=""
+if command -v git >/dev/null 2>&1 && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  REMOTE_URL=$(git config --get remote.origin.url || true)
+  if [[ -n "${REMOTE_URL:-}" ]]; then
+    DEFAULT_REPO=$(REMOTE_URL="$REMOTE_URL" python3 - <<'PY'
+import os
+
+remote = os.environ.get("REMOTE_URL", "").strip()
+path = ""
+if remote.startswith("git@github.com:"):
+    path = remote.split(":", 1)[1]
+elif remote.startswith("https://github.com/"):
+    path = remote.split("https://github.com/", 1)[1]
+
+if path.endswith(".git"):
+    path = path[:-4]
+
+print(path, end="")
+PY
+)
+  fi
+fi
+
+DEFAULT_REPO=${DEFAULT_REPO:-olivierbonnemaison/web_site}
+GITHUB_REPO=${GITHUB_REPO:-$DEFAULT_REPO}
 GITHUB_BRANCH=${GITHUB_BRANCH:-main}
 
 cleanup() {
@@ -25,6 +50,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
+echo "Using GitHub repo: $GITHUB_REPO (branch: $GITHUB_BRANCH)"
 echo "Determining AWS account..."
 ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
 OIDC_PROVIDER_ARN="arn:aws:iam::${ACCOUNT_ID}:oidc-provider/token.actions.githubusercontent.com"

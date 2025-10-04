@@ -53,7 +53,8 @@ trusts `token.actions.githubusercontent.com`.
 #### Provisioning the IAM role
 
 Use `scripts/provision_github_deploy_role.sh` to create or update the IAM role
-expected by the workflow.
+expected by the workflow (the script auto-detects the repository name from your
+`git` remote by default).
 
 ```bash
 # customise via ROLE_NAME, BUCKET_NAME, GITHUB_REPO, GITHUB_BRANCH if needed
