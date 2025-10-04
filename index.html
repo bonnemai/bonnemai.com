@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Olivier Bonnemaison</title>
+    <meta
+      name="description"
+      content="Portfolio and personal site for Olivier Bonnemaison — showcasing engineering projects, research interests, and ways to get in touch."
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a class="brand" href="#top">bonnemai.com</a>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#timeline">Journey</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="intro-heading">
+        <div class="hero-content">
+          <p class="eyebrow">Hello, I am</p>
+          <h1 id="intro-heading">Olivier Bonnemaison</h1>
+          <p class="lead">
+            Quantitative engineer and product-minded builder focused on
+            data, automation, and clean user experiences.
+          </p>
+          <a class="cta" href="#projects" aria-label="View highlighted projects">
+            Explore the work ↓
+          </a>
+        </div>
+        <aside aria-label="Snapshot">
+          <ul>
+            <li><strong>Based in:</strong> London</li>
+            <li><strong>Focus areas:</strong>Fixed Income, Equity Derivatives & Crypto Analytics</li>
+            <li><strong>Current obsession:</strong> Streaming data experiences with Python + FastAPI</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section id="about" aria-labelledby="about-heading">
+        <h2 class="section-heading">
+          <span>Background</span>
+          About me
+        </h2>
+        <p>
+          I design and ship systems that make complex financial information approachable.
+          Over the past decade I've led engineering teams, tuned pricing models, and built
+          interfaces that balance clarity with depth. My work spans the entire stack—from
+          data pipelines and cloud infrastructure to the pixels users love.
+        </p>
+        <p>
+          I'm equally at home iterating quickly with product partners or diving deep into
+          quantitative research. Lately I've been exploring how server-sent events and
+          modern web tooling can frame evolving markets in ways that feel intuitive and
+          human.
+        </p>
+      </section>
+
+      <section id="projects" aria-labelledby="projects-heading">
+        <h2 class="section-heading">
+          <span>Selected work</span>
+          Projects
+        </h2>
+        <div class="projects-grid">
+          <article class="project-card">
+            <div>
+              <h3>Emerging Market Curve Fitter</h3>
+              <div class="project-meta">
+                <span class="badge">FastAPI</span>
+                <span class="badge">Streaming</span>
+                <span class="badge">Python</span>
+                <span class="badge">d3js</span>
+              </div>
+            </div>
+            <p>
+              A server-sent events service that synthesises swap curves in real time,
+              fitting the data to polynomials and broadcasting snapshots to subscribed
+              front-ends. Built for experimentation with reactive dashboards.
+            </p>
+
+            <a href="https://staging.d1ia1ixpieyqs1.amplifyapp.com" target="_blank" rel="noreferrer">
+              <span>Front End →</span>
+            </a>
+
+            <a class="with-icon" href="https://github.com/bonnemai/curve_fitter_ui" target="_blank" rel="noreferrer">
+              <svg class="icon icon-github" aria-hidden="true" viewBox="0 0 16 16">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 .37-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.15-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.62 7.62 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.74.54 1.49 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8 8 0 0016 8c0-4.42-3.58-8-8-8z"
+                ></path>
+              </svg>
+              <span>Front End on GitHub →</span>
+            </a>
+
+            <a href="https://2pzmybbrkdhzf75k6wz24dflua0hbiko.lambda-url.eu-west-2.on.aws" target="_blank" rel="noreferrer">
+              <span>Back End →</span>
+            </a>
+
+            <a class="with-icon" href="https://github.com/bonnemai/curve_fitter" target="_blank" rel="noreferrer">
+              <svg class="icon icon-github" aria-hidden="true" viewBox="0 0 16 16">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 .37-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.15-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.62 7.62 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.74.54 1.49 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8 8 0 0016 8c0-4.42-3.58-8-8-8z"
+                ></path>
+              </svg>
+              <span>Backend on GitHub →</span>
+            </a>
+          </article>
+
+          <article class="project-card">
+            <div>
+              <h3>Crypto Regression Tool</h3>
+              <div class="project-meta">
+                <span class="badge">Data Viz</span>
+                <span class="badge">Crypto</span>
+                <span class="badge">APIs</span>
+              </div>
+            </div>
+            <p>
+              A Regression Visualisation tool on Crypto.
+            </p>
+            <a href="https://staging.d35i2rc6wwis9c.amplifyapp.com" target="_blank" rel="noreferrer">
+              Test the Regression tool →
+            </a>
+          </article>
+
+          <article class="project-card">
+            <div>
+              <h3>Custom Basket</h3>
+              <div class="project-meta">
+                <span class="badge">Python</span>
+                <span class="badge">Workflow</span>
+                <span class="badge">AGGrid</span>
+              </div>
+            </div>
+            <p>
+              A tool to Price Delta One Custom Baskets.
+            </p>
+            <a href="https://staging.d2u9z1zejubjek.amplifyapp.com" target="_blank" rel="noreferrer">
+              <span>Front End →</span>
+            </a>
+
+            <a class="with-icon" href="https://github.com/bonnemai/custom_basket" target="_blank" rel="noreferrer">
+              <svg class="icon icon-github" aria-hidden="true" viewBox="0 0 16 16">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 .37-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.15-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.62 7.62 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.74.54 1.49 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8 8 0 0016 8c0-4.42-3.58-8-8-8z"
+                ></path>
+              </svg>
+              <span>Backend on GitHub →</span>
+            </a>
+            <a class="with-icon" href="https://github.com/bonnemai/custom_basket_ui" target="_blank" rel="noreferrer">
+              <svg class="icon icon-github" aria-hidden="true" viewBox="0 0 16 16">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 .37-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.15-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.62 7.62 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.74.54 1.49 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8 8 0 0016 8c0-4.42-3.58-8-8-8z"
+                ></path>
+              </svg>
+              <span>UI on GitHub →</span>
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section id="timeline" aria-labelledby="timeline-heading">
+        <h2 class="section-heading">
+          <span>Trajectory</span>
+          Journey so far
+        </h2>
+        <div class="timeline">
+          <article class="timeline-item">
+            <h4>Capula Investment Management</h4>
+            <span>2018 — Present</span>
+            <p>
+              Developed & maintained the Global Strategic Reference Data System
+(C#, .NET Core, SQL Server, React, AG Grid) enabling consistent book hierarchy, user
+rights, and counterpart data across trading desks..
+            </p>
+          </article>
+          <article class="timeline-item">
+            <h4>HSBC</h4>
+            <span>2017 — 2018</span>
+            <p>
+              Led development and support of global Front Oﬃce Equity Derivatives tools (10
+              developers, C#, .NET).
+              Deployed a Python-based platform to capture and store Equity Derivatives Listed
+              Volatility in MongoDB/ Pandas, enabling advanced analysis and automating the marking
+              process.
+            </p>
+          </article>
+          <article class="timeline-item">
+            <h4>JPMorgan</h4>
+            <span>2011 — 2017</span>
+            <p>
+              Led the APAC Front Oﬃce Development Team (8 developers), delivering a Java/TibRV/Linux analytics platform, improving
+              stability, scalability, and time-to-market for trading strategies.
+            </p>
+          </article>
+           <article class="timeline-item">
+            <h4>BNP Paribas</h4>
+            <span>2002 — 2011</span>
+            <p>
+              Led the APAC Equity Derivatives Platform team (20 developers, Java), delivering the
+              rollout of the Strategic Risk Platform, significantly improving system stability and
+              reliability.
+              Directed the Global Equity Derivatives Pricing Tools team (12 developers, Java),
+              implemented and deployed a booking workflow that streamlined trade capture and
+              reduced errors, enhancing operational eﬃciency.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-heading">
+        <div class="contact-card">
+          <h2 class="section-heading" style="margin: 0;">
+            <span>Collaborate</span>
+            Let's talk
+          </h2>
+          <p>
+            I'm always excited to hear about ambitious ideas. Whether it's building
+            infrastructure, advising on data products, or speaking at events—drop a note
+            and let's explore it together.
+          </p>
+          <div class="contact-links">
+            <a class="with-icon" href="mailto:olivier.bonnemaison@gmail.com">
+              <svg class="icon icon-mail" aria-hidden="true" viewBox="0 0 24 24">
+                <rect x="3" y="5" width="18" height="14" rx="3" ry="3" fill="none" stroke="currentColor" stroke-width="1.5"></rect>
+                <path d="M3.6 7.6 11.7 13.2a1 1 0 0 0 1.2 0l8.1-5.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="m3.6 17.4 5.3-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="m20.4 17.4-5.3-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <span>Email</span>
+            </a>
+            <a class="with-icon" href="https://www.linkedin.com/in/bonnemai" target="_blank" rel="noreferrer">
+              <svg class="icon icon-linkedin" aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.024-3.037-1.852-3.037-1.853 0-2.137 1.446-2.137 2.939v5.667H9.35V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.604 0 4.268 2.373 4.268 5.459v6.282zM5.337 7.433a2.062 2.062 0 1 1 .001-4.125 2.062 2.062 0 0 1-.001 4.125zM7.119 20.452H3.554V9h3.565v11.452z"
+                ></path>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+            <a class="with-icon" href="https://github.com/bonnemai" target="_blank" rel="noreferrer">
+              <svg class="icon icon-github" aria-hidden="true" viewBox="0 0 16 16">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 .37-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.15-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.62 7.62 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.74.54 1.49 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8 8 0 0016 8c0-4.42-3.58-8-8-8z"
+                ></path>
+              </svg>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Olivier Bonnemaison · Built for S3 static hosting ·
+      <a href="#top">Back to top</a>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
