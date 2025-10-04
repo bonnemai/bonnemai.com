@@ -2,6 +2,9 @@
 
 This directory contains the static assets for the personal website of Olivier Bonnemaison. The site is optimised for simple static hosting (Amazon S3, CloudFront, etc.) and is intentionally framework-free.
 
+TODO: 
+* Use the right AWS_DEPLOY_ROLE_ARN
+
 ## Structure
 
 - `index.html` – main landing page
