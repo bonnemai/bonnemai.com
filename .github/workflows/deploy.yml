@@ -38,3 +38,42 @@ jobs:
             --exclude "deploy.sh" \
             --exclude "README.md" \
             --exclude ".DS_Store"
+
+      - name: Trigger Amplify deployment
+        env:
+          APP_ID: d3iwsh8gt9f3of
+          BRANCH: main
+        run: |
+          # Ensure Amplify branch exists
+          if ! aws amplify get-branch --app-id "$APP_ID" --branch-name "$BRANCH" >/dev/null 2>&1; then
+            echo "Creating Amplify branch '$BRANCH'..."
+            aws amplify create-branch --app-id "$APP_ID" --branch-name "$BRANCH"
+          fi
+
+          # Create deployment and get upload URL
+          echo "Requesting Amplify deployment slot..."
+          DEPLOYMENT_JSON=$(aws amplify create-deployment --app-id "$APP_ID" --branch-name "$BRANCH")
+
+          UPLOAD_URL=$(echo "$DEPLOYMENT_JSON" | python3 -c 'import json,sys; print(json.load(sys.stdin)["zipUploadUrl"])')
+          JOB_ID=$(echo "$DEPLOYMENT_JSON" | python3 -c 'import json,sys; print(json.load(sys.stdin)["jobId"])')
+
+          # Create zip archive
+          zip -r amplify-upload.zip . \
+            -x ".git/*" ".github/*" "deploy.sh" "README.md" ".DS_Store"
+
+          # Upload archive
+          echo "Uploading archive to Amplify..."
+          curl --fail --silent --show-error \
+            --request PUT \
+            --upload-file amplify-upload.zip \
+            --header "Content-Type: application/zip" \
+            "$UPLOAD_URL"
+
+          # Start deployment
+          echo "Starting Amplify deployment (job: $JOB_ID)..."
+          aws amplify start-deployment \
+            --app-id "$APP_ID" \
+            --branch-name "$BRANCH" \
+            --job-id "$JOB_ID"
+
+          echo "Amplify deployment triggered successfully"
