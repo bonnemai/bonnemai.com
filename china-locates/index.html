@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>China Locates · Real-time inventory platform</title>
+    <meta name="description" content="A visual explanation of the China Locates real-time inventory and locate allocation platform." />
+    <meta name="theme-color" content="#06111f" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body class="china-page">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <header>
+      <nav aria-label="Primary navigation">
+        <a class="brand" href="../">bonnemai.com</a>
+        <ul>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="../#experience">Back to CV</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="top" tabindex="-1">
+      <section class="china-hero" aria-labelledby="china-title">
+        <div>
+          <p class="eyebrow">Project deep dive · 2025 — present</p>
+          <h1 id="china-title">China Locates</h1>
+          <p class="china-lead">Turning a firehose of market updates into a dependable inventory service that answers locate requests in under a second.</p>
+          <div class="project-meta">
+            <span class="badge">Python</span><span class="badge">FastAPI</span><span class="badge">Redis</span><span class="badge">Kafka</span><span class="badge">Kubernetes</span>
+          </div>
+        </div>
+        <div class="china-hero-stat" aria-label="Key scale figures">
+          <div><strong>700M</strong><span>updates / day</span></div>
+          <div><strong>280k</strong><span>inventory records</span></div>
+          <div><strong>10k</strong><span>locates / day</span></div>
+        </div>
+      </section>
+
+      <section id="architecture" class="flow-section" aria-labelledby="flow-title">
+        <div class="section-heading-row">
+          <h2 id="flow-title" class="section-heading"><span>The system, in motion</span>One shared state. Many safe readers.</h2>
+          <button class="flow-control" type="button" aria-pressed="false">Pause animation <span aria-hidden="true">Ⅱ</span></button>
+        </div>
+        <p class="section-intro">The writer builds the inventory from live and batch sources, persists the shared truth in Redis, and keeps five stateless reader pods ready to answer requests at scale.</p>
+
+        <div class="architecture-stage" aria-label="Animated architecture diagram">
+          <div class="stage-grid" aria-hidden="true"></div>
+          <div class="flow-lane lane-top" aria-hidden="true"><span class="flow-line"></span><i class="packet packet-one"></i><i class="packet packet-two"></i></div>
+          <div class="flow-lane lane-middle" aria-hidden="true"><span class="flow-line"></span><i class="packet packet-three"></i></div>
+          <div class="flow-lane lane-bottom" aria-hidden="true"><span class="flow-line"></span><i class="packet packet-four"></i><i class="packet packet-five"></i></div>
+
+          <article class="node source-node">
+            <span class="node-kicker">01 · ingest</span><h3>Inventory updates</h3><strong>700M / day</strong>
+            <p>SSE feed · Kafka events · daily batch loads</p>
+          </article>
+          <article class="node writer-node">
+            <span class="node-kicker">02 · build</span><h3>Inventory writer</h3><strong>1 leader pod</strong>
+            <p>Normalises, groups and reconciles the live state.</p>
+          </article>
+          <article class="node redis-node">
+            <span class="node-kicker">03 · shared state</span><h3>Redis</h3><strong>280k records</strong>
+            <p>Fast, consistent inventory snapshot for every reader.</p>
+          </article>
+          <div class="readers-node" aria-label="Five stateless reader pods">
+            <span class="node-kicker">04 · scale out</span><h3>Reader pods</h3>
+            <div class="pod-row"><span class="pod active">R1</span><span class="pod">R2</span><span class="pod">R3</span><span class="pod">R4</span><span class="pod">R5</span></div>
+            <p>Heartbeat-gated · fail-closed reads</p>
+          </div>
+          <article class="node client-node">
+            <span class="node-kicker">05 · serve</span><h3>Locate clients</h3><strong>10k requests / day</strong>
+            <p>19 REST endpoints · responses coordinated through Kafka</p>
+          </article>
+          <div class="kafka-node"><span class="node-kicker">event bus</span><h3>Kafka</h3><p>events in · responses out</p><span class="kafka-bars"><i></i><i></i><i></i></span></div>
+          <div class="s3-node"><span class="node-kicker">archive</span><h3>S3</h3><p>Durable history</p></div>
+        </div>
+
+        <div class="flow-legend" aria-label="Diagram legend"><span><i class="legend-dot live"></i>Live data flow</span><span><i class="legend-dot state"></i>Shared state</span><span><i class="legend-dot safe"></i>Safety boundary</span></div>
+      </section>
+
+      <section id="impact" class="impact-grid" aria-labelledby="impact-title">
+        <div>
+          <h2 id="impact-title" class="section-heading"><span>What changed</span>Engineering that earns trust</h2>
+          <p class="section-intro">The platform is designed around operational reality: the inventory must be current, readers must agree, and a degraded dependency must fail safely.</p>
+        </div>
+        <div class="impact-cards">
+          <article><span class="impact-number">01</span><h3>Fast by construction</h3><p>Targeted Redis queries replaced full-table scans, taking reconciliation and short-sell endpoints from roughly 30 seconds to sub-second.</p></article>
+          <article><span class="impact-number">02</span><h3>Consistent across pods</h3><p>A leader-follower topology with heartbeat-gated reads eliminates cross-pod divergence while keeping readers horizontally scalable.</p></article>
+          <article><span class="impact-number">03</span><h3>Observable in production</h3><p>Prometheus coverage grew from health checks to around 15 operational metrics for SLO tracking and quicker incident triage.</p></article>
+        </div>
+      </section>
+
+      <section class="closing-note" aria-label="Confidentiality note"><p><span>Public summary</span> The animation describes the architecture at a high level — no proprietary models, data, or implementation details are shown.</p><a href="../#experience">Return to the CV →</a></section>
+    </main>
+    <footer><span id="year"></span> Olivier Bonnemaison · <a href="../">Back to bonnemai.com</a></footer>
+    <script>
+      const button = document.querySelector('.flow-control');
+      const stage = document.querySelector('.architecture-stage');
+      button.addEventListener('click', () => {
+        const paused = stage.classList.toggle('is-paused');
+        button.setAttribute('aria-pressed', paused);
+        button.innerHTML = paused ? 'Play animation <span aria-hidden="true">▶</span>' : 'Pause animation <span aria-hidden="true">Ⅱ</span>';
+      });
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

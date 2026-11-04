@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BBG Quick Quotes · Agentic locate workflow</title>
+    <meta name="description" content="A visual explanation of an AI-agentic Bloomberg quick-quote and locate workflow." />
+    <meta name="theme-color" content="#06111f" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body class="bbg-page">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <header>
+      <nav aria-label="Primary navigation">
+        <a class="brand" href="../">bonnemai.com</a>
+        <ul>
+          <li><a href="#workflow">Workflow</a></li>
+          <li><a href="#agent">Agent surface</a></li>
+          <li><a href="../#experience">Back to CV</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="top" tabindex="-1">
+      <section class="bbg-hero" aria-labelledby="bbg-title">
+        <div>
+          <p class="eyebrow">Project deep dive · APAC front-office workflow</p>
+          <h1 id="bbg-title">BBG Quick Quotes</h1>
+          <p class="bbg-lead">An AI agent that turns a Bloomberg chat quote into a locate decision — with the trader always in the loop.</p>
+          <div class="project-meta"><span class="badge">Python</span><span class="badge">FastAPI</span><span class="badge">LiteLLM</span><span class="badge">Redis</span><span class="badge">Kubernetes</span></div>
+        </div>
+        <div class="agent-badge"><span class="pulse-dot"></span><span><strong>Agentic workflow</strong><small>Propose · explain · ask</small></span></div>
+      </section>
+
+      <section id="workflow" class="flow-section" aria-labelledby="workflow-title">
+        <div class="section-heading-row">
+          <h2 id="workflow-title" class="section-heading"><span>From chat to locate</span>One quote. Two paths.</h2>
+          <button class="flow-control bbg-control" type="button" aria-pressed="false">Run workflow <span aria-hidden="true">▶</span></button>
+        </div>
+        <p class="section-intro">The agent normalises the incoming quote, checks internal inventory, and chooses the shortest safe path. When inventory is missing, it fans out to the lender network and updates the state before responding.</p>
+
+        <div class="quote-stage" aria-label="Animated quick quote workflow">
+          <div class="quote-grid" aria-hidden="true"></div>
+          <div class="quote-lane quote-lane-one" aria-hidden="true"><i></i><i></i></div>
+          <div class="quote-lane quote-lane-two" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="quote-lane quote-lane-three" aria-hidden="true"><i></i></div>
+          <article class="quote-node quote-input">
+            <span class="node-kicker">01 · incoming</span><h3>Bloomberg chat</h3>
+            <div class="chat-bubble">Need 2m <strong>700 HK</strong> locate?</div>
+            <small>MQB feed · live</small>
+          </article>
+          <article class="quote-node normaliser-node">
+            <span class="node-kicker">02 · understand</span><h3>Quote normaliser</h3>
+            <div class="normaliser-tags"><span>700 HK</span><span>2,000,000</span><span>China equity</span></div>
+            <small>RIC restoration · suffix parsing · C-share rules</small>
+          </article>
+          <article class="quote-node agent-node">
+            <span class="node-kicker">03 · decide</span><h3>Agent decision</h3>
+            <div class="decision-chip"><span class="pulse-dot"></span>Check inventory first</div>
+            <small>Inventory-gated · kill-switch protected</small>
+          </article>
+          <article class="quote-node inventory-node">
+            <span class="node-kicker">04a · available</span><h3>Internal inventory</h3><strong>2.4m available</strong>
+            <small>Redis lookup · sufficient</small>
+          </article>
+          <article class="quote-node lender-node">
+            <span class="node-kicker">04b · source</span><h3>Lender network</h3><strong>30 chatrooms</strong>
+            <small>Idea Drawer · controlled fan-out</small>
+          </article>
+          <article class="quote-node phoenix-node">
+            <span class="node-kicker">05 · submit</span><h3>Phoenix locate</h3><strong>SOAP request</strong>
+            <small>Internal locate system</small>
+          </article>
+          <article class="quote-node response-node">
+            <span class="node-kicker">06 · return</span><h3>Trader response</h3><strong>Locate ready</strong>
+            <small>Quote sent back to Bloomberg chat</small>
+          </article>
+        </div>
+        <div class="flow-legend"><span><i class="legend-dot live"></i>Agent reasoning path</span><span><i class="legend-dot state"></i>Inventory state</span><span><i class="legend-dot safe"></i>Human approval boundary</span></div>
+      </section>
+
+      <section id="agent" class="agent-section" aria-labelledby="agent-title">
+        <div>
+          <h2 id="agent-title" class="section-heading"><span>Trader in control</span>AI proposes. People decide.</h2>
+          <p class="section-intro">The agent brings the next best action to the desk instead of hiding the workflow behind automation. Every consequential step is visible, explainable and clickable.</p>
+          <div class="agent-actions"><button class="agent-action primary" type="button"><span>✓</span> Send locate</button><button class="agent-action" type="button"><span>↗</span> Ask lenders</button><button class="agent-action" type="button"><span>⌁</span> Explain decision</button></div>
+        </div>
+        <div class="agent-console" aria-label="Example agent console">
+          <div class="console-top"><span class="console-status"><i></i> Agent ready</span><span class="console-context">700 HK · 2m</span></div>
+          <div class="console-message"><span class="avatar">AI</span><p>I found <strong>2.4m</strong> in internal inventory. I can submit the locate to Phoenix now.</p></div>
+          <div class="console-message user-message"><span class="avatar trader">TR</span><p>What if we need more?</p></div>
+          <div class="console-message"><span class="avatar">AI</span><p>I can ask the approved lender rooms, consolidate replies, then update inventory before retrying.</p></div>
+          <div class="console-input"><span>Ask the agent about this quote…</span><b>↵</b></div>
+          <div class="console-tools"><span>⌁ Chat</span><span>◉ Voice call</span><span>◌ Live context</span></div>
+        </div>
+      </section>
+
+      <section class="bbg-proof-grid" aria-label="Platform capabilities">
+        <article><span class="impact-number">01</span><h3>Normalises messy reality</h3><p>Handles C-shares, zero-padding, RIC restoration and quantity suffixes such as k, M, MM and G.</p></article>
+        <article><span class="impact-number">02</span><h3>Safe at production speed</h3><p>Uses a 60/min sliding-window pacer, graceful degradation and a kill-switch around the locate path.</p></article>
+        <article><span class="impact-number">03</span><h3>Built for the desk</h3><p>Quick Quotes, Target Availability, Lender Quotes, Chat, Ideas and Admin — each tile degrades independently.</p></article>
+      </section>
+
+      <section class="closing-note" aria-label="Confidentiality note"><p><span>Public summary</span> The page illustrates the workflow at a high level — no proprietary prompts, lender data or credentials are shown.</p><a href="../#experience">Return to the CV →</a></section>
+    </main>
+    <footer><span id="year"></span> Olivier Bonnemaison · <a href="../">Back to bonnemai.com</a></footer>
+    <script>
+      const button = document.querySelector('.bbg-control');
+      const stage = document.querySelector('.quote-stage');
+      let running = false;
+      button.addEventListener('click', () => {
+        running = !running;
+        stage.classList.toggle('is-running', running);
+        button.setAttribute('aria-pressed', running);
+        button.innerHTML = running ? 'Pause workflow <span aria-hidden="true">Ⅱ</span>' : 'Run workflow <span aria-hidden="true">▶</span>';
+      });
+      document.querySelectorAll('.agent-action').forEach((action) => action.addEventListener('click', () => {
+        document.querySelectorAll('.agent-action').forEach((item) => item.classList.remove('selected'));
+        action.classList.add('selected');
+      }));
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

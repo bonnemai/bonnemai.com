@@ -3,71 +3,103 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Olivier Bonnemaison</title>
+    <title>Olivier Bonnemaison · Front-Office Quantitative Technology</title>
     <meta
       name="description"
-      content="Portfolio and personal site for Olivier Bonnemaison — showcasing engineering projects, research interests, and ways to get in touch."
+      content="Olivier Bonnemaison is a senior software engineer building dependable, real-time technology for front-office and quantitative teams."
     />
+    <meta name="theme-color" content="#06111f" />
+    <link rel="canonical" href="https://bonnemai.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bonnemai.com/" />
+    <meta property="og:title" content="Olivier Bonnemaison · Front-Office Quantitative Technology" />
+    <meta property="og:description" content="Senior software engineer building dependable, high-throughput systems for front-office and quantitative teams." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Olivier Bonnemaison · Front-Office Quantitative Technology" />
+    <meta name="twitter:description" content="Senior software engineer building dependable, high-throughput systems for front-office and quantitative teams." />
     <link rel="stylesheet" href="assets/styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Olivier Bonnemaison",
+        "url": "https://bonnemai.com/",
+        "jobTitle": "Senior Software Engineer",
+        "worksFor": { "@type": "Organization", "name": "BNP Paribas" },
+        "sameAs": [
+          "https://www.linkedin.com/in/bonnemai",
+          "https://github.com/bonnemai"
+        ]
+      }
+    </script>
   </head>
   <body>
+    <a class="skip-link" href="#top">Skip to content</a>
     <header>
-      <nav>
+      <nav aria-label="Primary navigation">
         <a class="brand" href="#top">bonnemai.com</a>
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
-          <li><a href="#timeline">Journey</a></li>
+          <li><a href="#experience">Journey</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
     </header>
 
-    <main id="top">
+    <main id="top" tabindex="-1">
       <section class="hero" aria-labelledby="intro-heading">
         <div class="hero-content">
-          <p class="eyebrow">Hello, I am</p>
+          <p class="eyebrow">Senior software engineer · London · Front-office technology</p>
           <h1 id="intro-heading">Olivier Bonnemaison</h1>
           <p class="lead">
-            Quantitative engineer and product-minded builder focused on
-            data, automation, and clean user experiences.
+            I build dependable, high-throughput systems that turn complex market
+            workflows into fast, usable tools for front-office and quantitative teams.
           </p>
-          <a class="cta" href="#projects" aria-label="View highlighted projects">
-            Explore the work ↓
-          </a>
+          <div class="hero-actions">
+            <a class="cta" href="#experience" aria-label="View professional experience">View experience <span aria-hidden="true">↓</span></a>
+            <a class="text-cta" href="#projects">Explore selected work <span aria-hidden="true">→</span></a>
+          </div>
         </div>
-        <aside aria-label="Snapshot">
+        <aside class="hero-panel" aria-label="Professional snapshot">
+          <p class="panel-label">Currently</p>
+          <p class="panel-role">Senior Software Engineer</p>
+          <p class="panel-company">BNP Paribas · Front-Office Quantitative Technology</p>
+          <div class="panel-divider"></div>
           <ul>
-            <li><strong>📍 Based in:</strong> London</li>
-            <li><strong>💼 Focus areas:</strong> Fixed Income, Equity Derivatives & Crypto Analytics</li>
-            <li><strong>🚀 Current obsession:</strong> Streaming data with Python + FastAPI on AWS</li>
-            <li><strong>👨‍👩‍👧‍👦 Personal:</strong> 1 wife, 3 kids, 1 dog</li>
+            <li><span>Focus</span><strong>Real-time systems & quantitative workflows</strong></li>
+            <li><span>Stack</span><strong>Python · FastAPI · Kafka · Kubernetes</strong></li>
+            <li><span>Experience</span><strong>20+ years in front-office technology</strong></li>
           </ul>
         </aside>
       </section>
 
+      <section class="capabilities" aria-label="Core capabilities">
+        <div><span>01</span><strong>Market-facing systems</strong><p>Technology designed around decisions, controls, and trader workflows.</p></div>
+        <div><span>02</span><strong>Streaming platforms</strong><p>Event-driven services built for high volumes and low-latency responses.</p></div>
+        <div><span>03</span><strong>Practical delivery</strong><p>From architecture and APIs to operationally useful interfaces.</p></div>
+      </section>
+
       <section id="about" aria-labelledby="about-heading">
-        <h2 class="section-heading">
+        <h2 id="about-heading" class="section-heading">
           <span>Background</span>
           About me
         </h2>
         <p>
-          I design and ship systems that transform complex financial data into approachable,
-          actionable insights. Over the past two decades, I've led engineering teams across
-          global investment banks, building platforms that power trading desks and quantitative
-          strategies. My work spans the entire stack—from real-time data pipelines and cloud
-          infrastructure to elegant user interfaces.
+          I design and ship systems that make complex financial workflows easier to operate.
+          Over two decades in global investment banks, I have led teams and delivered platforms
+          used by trading desks and quantitative groups—from real-time data services and cloud
+          infrastructure to interfaces that help people act on the information.
         </p>
         <p>
-          Passionate about the intersection of finance and technology, I specialize in fixed
-          income analytics, equity derivatives, and cryptocurrency markets. Recently, I've been
-          exploring how streaming architectures and modern web technologies can deliver
-          real-time market insights with exceptional user experiences.
+          My interests span front-office engineering, fixed income analytics, equity derivatives,
+          and crypto markets. I particularly enjoy the boundary between robust backend systems and
+          clear product experiences: the place where sound engineering earns trust with users.
         </p>
       </section>
 
       <section id="projects" aria-labelledby="projects-heading">
-        <h2 class="section-heading">
+        <h2 id="projects-heading" class="section-heading">
           <span>Selected work</span>
           Projects
         </h2>
@@ -254,15 +286,34 @@
         </div>
       </section>
 
-      <section id="timeline" aria-labelledby="timeline-heading">
-        <h2 class="section-heading">
+      <section id="experience" aria-labelledby="timeline-heading">
+        <h2 id="timeline-heading" class="section-heading">
           <span>Trajectory</span>
           Journey so far
         </h2>
         <div class="timeline">
+          <article class="timeline-item timeline-item-current">
+            <div class="timeline-title-row">
+              <h3>BNP Paribas</h3>
+              <span class="current-pill">Current</span>
+            </div>
+            <span>2025 — Present · Senior Software Engineer, Front-Office Quantitative Technology</span>
+            <p>
+              Building China Locates, a real-time inventory and locate-allocation platform for
+              front-office users. The platform processes roughly 700 million events a day and
+              supports around 10,000 locate requests daily, delivering allocation decisions in
+              under a second through Python and FastAPI services backed by Redis, Kafka, and
+              Kubernetes. A Streamlit interface gives traders a focused operational view.
+            </p>
+            <div class="timeline-detail-links">
+              <a class="timeline-detail-link" href="china-locates/">Explore China Locates →</a>
+              <a class="timeline-detail-link" href="bbg-quick-quotes/">Explore BBG Quick Quotes →</a>
+            </div>
+            <p class="confidentiality-note">Public summary only — no proprietary models, data, or implementation details.</p>
+          </article>
           <article class="timeline-item">
-            <h4>Capula Investment Management</h4>
-            <span>2018 — Present</span>
+            <h3>Capula Investment Management</h3>
+            <span>2018 — 2025</span>
             <p>
               Architect and maintain the Global Strategic Reference Data System powering
               multi-billion dollar trading operations. Built with C#, .NET Core, SQL Server,
@@ -271,7 +322,7 @@
             </p>
           </article>
           <article class="timeline-item">
-            <h4>HSBC</h4>
+            <h3>HSBC</h3>
             <span>2017 — 2018</span>
             <p>
               Led a team of 10 developers building global Front Office Equity Derivatives tools
@@ -281,7 +332,7 @@
             </p>
           </article>
           <article class="timeline-item">
-            <h4>JPMorgan</h4>
+            <h3>JPMorgan</h3>
             <span>2011 — 2017</span>
             <p>
               Managed the APAC Front Office Development Team (8 developers) delivering a
@@ -291,7 +342,7 @@
             </p>
           </article>
            <article class="timeline-item">
-            <h4>BNP Paribas</h4>
+            <h3>BNP Paribas</h3>
             <span>2002 — 2011</span>
             <p>
               Led the APAC Equity Derivatives Platform team (20 developers) through the successful
@@ -306,7 +357,7 @@
 
       <section id="contact" aria-labelledby="contact-heading">
         <div class="contact-card">
-          <h2 class="section-heading" style="margin: 0;">
+          <h2 id="contact-heading" class="section-heading" style="margin: 0;">
             <span>Collaborate</span>
             Let's talk
           </h2>

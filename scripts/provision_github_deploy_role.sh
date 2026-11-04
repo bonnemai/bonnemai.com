@@ -8,6 +8,7 @@ set -euo pipefail
 # Customise via environment variables before running:
 #   ROLE_NAME         Name for the IAM role (default: github-deploy-static-site)
 #   BUCKET_NAME       Target S3 bucket (default: bonnemai.com)
+#   AMPLIFY_APP_ID    AWS Amplify app ID (default: d3iwsh8gt9f3of)
 #   GITHUB_REPO       GitHub repo in owner/name form (auto-detected from git remote, fallback: olivierbonnemaison/web_site)
 #   GITHUB_BRANCH     Branch that may assume the role (default: main)
 #
@@ -16,6 +17,7 @@ set -euo pipefail
 
 ROLE_NAME=${ROLE_NAME:-github-deploy-static-site}
 BUCKET_NAME=${BUCKET_NAME:-bonnemai.com}
+AMPLIFY_APP_ID=${AMPLIFY_APP_ID:-d3iwsh8gt9f3of}
 
 DEFAULT_REPO=""
 if command -v git >/dev/null 2>&1 && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
@@ -86,7 +88,10 @@ cat >"$ASSUME_ROLE_DOC" <<EOF
           "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
         },
         "StringLike": {
-          "token.actions.githubusercontent.com:sub": "repo:${GITHUB_REPO}:ref:refs/heads/${GITHUB_BRANCH}"
+          "token.actions.githubusercontent.com:sub": [
+            "repo:${GITHUB_REPO}:ref:refs/heads/${GITHUB_BRANCH}",
+            "repo:${GITHUB_REPO}:environment:*"
+          ]
         }
       }
     }
@@ -131,6 +136,17 @@ cat >"$INLINE_POLICY_DOC" <<EOF
         "s3:DeleteObject"
       ],
       "Resource": "arn:aws:s3:::${BUCKET_NAME}/*"
+    },
+    {
+      "Sid": "AllowAmplifyDeployment",
+      "Effect": "Allow",
+      "Action": [
+        "amplify:GetBranch",
+        "amplify:CreateBranch",
+        "amplify:CreateDeployment",
+        "amplify:StartDeployment"
+      ],
+      "Resource": "arn:aws:amplify:*:${ACCOUNT_ID}:apps/${AMPLIFY_APP_ID}/*"
     }
   ]
 }
