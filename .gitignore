@@ -1,0 +1,4 @@
+# Generated AWS deployment archive
+/aws-deployment.zip
+.DS_Store
+aws-deployment.zip

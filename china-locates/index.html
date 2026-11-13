@@ -15,7 +15,11 @@
         <a class="brand" href="../">bonnemai.com</a>
         <ul>
           <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#decisions">Decisions</a></li>
+          <li><a href="#reliability">Reliability</a></li>
+          <li><a href="#lessons">Lessons learned</a></li>
           <li><a href="#impact">Impact</a></li>
+          <li><a href="#contribution">Contribution</a></li>
           <li><a href="../#experience">Back to CV</a></li>
         </ul>
       </nav>
@@ -43,7 +47,7 @@
           <h2 id="flow-title" class="section-heading"><span>The system, in motion</span>One shared state. Many safe readers.</h2>
           <button class="flow-control" type="button" aria-pressed="false">Pause animation <span aria-hidden="true">Ⅱ</span></button>
         </div>
-        <p class="section-intro">The writer builds the inventory from live and batch sources, persists the shared truth in Redis, and keeps five stateless reader pods ready to answer requests at scale.</p>
+        <p class="section-intro">The platform turns continuously changing inventory into a shared, trusted decision surface: one writer builds the state, Redis makes it immediately available, and five stateless reader pods answer locate requests at scale.</p>
 
         <div class="architecture-stage" aria-label="Animated architecture diagram">
           <div class="stage-grid" aria-hidden="true"></div>
@@ -79,15 +83,67 @@
         <div class="flow-legend" aria-label="Diagram legend"><span><i class="legend-dot live"></i>Live data flow</span><span><i class="legend-dot state"></i>Shared state</span><span><i class="legend-dot safe"></i>Safety boundary</span></div>
       </section>
 
-      <section id="impact" class="impact-grid" aria-labelledby="impact-title">
+      <section id="decisions" class="impact-grid" aria-labelledby="decisions-title">
         <div>
-          <h2 id="impact-title" class="section-heading"><span>What changed</span>Engineering that earns trust</h2>
-          <p class="section-intro">The platform is designed around operational reality: the inventory must be current, readers must agree, and a degraded dependency must fail safely.</p>
+          <h2 id="decisions-title" class="section-heading"><span>Architecture Decisions</span>Engineering trade-offs</h2>
+          <p class="section-intro">The design separates state construction from request serving so that freshness, consistency and throughput can be reasoned about independently. Each choice makes one property stronger while keeping its cost explicit — the architecture is the result of these trade-offs, not just a diagram of components.</p>
         </div>
         <div class="impact-cards">
-          <article><span class="impact-number">01</span><h3>Fast by construction</h3><p>Targeted Redis queries replaced full-table scans, taking reconciliation and short-sell endpoints from roughly 30 seconds to sub-second.</p></article>
-          <article><span class="impact-number">02</span><h3>Consistent across pods</h3><p>A leader-follower topology with heartbeat-gated reads eliminates cross-pod divergence while keeping readers horizontally scalable.</p></article>
-          <article><span class="impact-number">03</span><h3>Observable in production</h3><p>Prometheus coverage grew from health checks to around 15 operational metrics for SLO tracking and quicker incident triage.</p></article>
+          <article><span class="impact-number">01</span><h3>Kafka for coordination</h3><p>Kafka carries the high-volume event stream and request/response flow, decoupling producers from consumers and allowing the platform to absorb bursts without coupling every service directly.</p></article>
+          <article><span class="impact-number">02</span><h3>Redis for the hot state</h3><p>Redis keeps the reconciled inventory close to the readers. Targeted lookups avoid repeated full-table scans and help move reconciliation and short-sell endpoints from roughly 30 seconds to sub-second responses.</p></article>
+          <article><span class="impact-number">03</span><h3>Single writer, multiple readers</h3><p>One writer owns reconciliation and produces a coherent inventory snapshot; stateless readers scale horizontally behind it. The trade-off is deliberate: centralise mutation to make consistency easier to verify, then scale the read path independently.</p></article>
+          <article><span class="impact-number">04</span><h3>Consistency through shared state</h3><p>Five readers do not maintain independent copies of inventory. They read the same Redis-backed snapshot and are admitted only while the writer heartbeat proves that the state is current enough to serve.</p></article>
+          <article><span class="impact-number">05</span><h3>Failure is a safe outcome</h3><p>If a reader loses its connection or the writer stops renewing its heartbeat, that reader stops serving rather than guessing. Recovery is explicit: restore health, rebuild state if needed, then reopen the read path.</p></article>
+        </div>
+      </section>
+
+      <section id="reliability" class="impact-grid" aria-labelledby="reliability-title">
+        <div>
+          <h2 id="reliability-title" class="section-heading"><span>When dependencies degrade</span>Reliability by design</h2>
+          <p class="section-intro">For a trading workflow, an uncertain answer is worse than a visible refusal. The platform makes freshness and dependency health part of the request path.</p>
+        </div>
+        <div class="impact-cards">
+          <article><span class="impact-number">FAIL-CLOSED</span><h3>Stale state is not served</h3><p>Heartbeat-gated readers refuse requests when the writer or shared state is no longer demonstrably healthy, preventing a degraded snapshot from being presented as a current allocation decision.</p></article>
+          <article><span class="impact-number">RECOVERY</span><h3>Rebuild from the event flow</h3><p>Separating ingestion, reconciliation and serving gives the system a clear recovery path: restore the writer, rebuild the shared snapshot, then reopen readers once health checks pass.</p></article>
+          <article><span class="impact-number">OPERATIONS</span><h3>Health is visible</h3><p>Prometheus instrumentation covers more than liveness: around 15 operational metrics help track freshness, throughput and request behaviour during triage and recovery.</p></article>
+        </div>
+      </section>
+
+      <section id="lessons" class="impact-grid" aria-labelledby="lessons-title">
+        <div>
+          <h2 id="lessons-title" class="section-heading"><span>Production lessons learned</span>When readers ran out of memory</h2>
+          <p class="section-intro">An OOMKill on the reader pods became a useful example of production engineering: start with the user-visible symptom, follow the evidence, fix the resource behaviour and make the regression harder to repeat.</p>
+        </div>
+        <div class="impact-cards">
+          <article><span class="impact-number">01 · SYMPTOMS</span><h3>Readers disappeared under load</h3><p>Reader pods were being OOMKilled, reducing the available serving capacity and creating an operational signal that could not be treated as a simple availability blip.</p></article>
+          <article><span class="impact-number">02 · DIAGNOSIS</span><h3>Follow memory, traffic and payloads</h3><p>Correlating pod memory, request volume and the shape of the data handled by the readers narrowed the issue to memory growth in the serving path rather than Kafka or Redis availability.</p></article>
+          <article><span class="impact-number">03 · CORRECTION</span><h3>Reduce the working set</h3><p>The reader path was changed to avoid retaining unnecessary data and to keep lookups targeted, reducing peak memory pressure while preserving the shared-state model.</p></article>
+          <article><span class="impact-number">04 · PREVENTION</span><h3>Make the limit observable</h3><p>Resource behaviour became part of the operational picture: monitor memory alongside latency and throughput, keep health gates meaningful and use the metrics to catch a regression before Kubernetes has to kill a pod.</p></article>
+        </div>
+      </section>
+
+      <section id="impact" class="impact-grid" aria-labelledby="impact-title">
+        <div>
+          <h2 id="impact-title" class="section-heading"><span>Why traders feel the difference</span>Business impact</h2>
+          <p class="section-intro">The outcome is not just a faster backend. It is a more dependable way for front-office users to turn live inventory into an actionable locate decision.</p>
+        </div>
+        <div class="impact-cards">
+          <article><span class="impact-number">01</span><h3>Faster decisions</h3><p>Endpoints that once took roughly 30 seconds now return in under a second, reducing friction in time-sensitive locate and short-sell workflows.</p></article>
+          <article><span class="impact-number">02</span><h3>One shared answer</h3><p>Readers work from the same reconciled snapshot, so traders get consistent inventory decisions rather than pod-dependent results.</p></article>
+          <article><span class="impact-number">03</span><h3>Built for the real workload</h3><p>The platform handles around 700 million updates and 10,000 locate requests per day across an inventory of roughly 280,000 records.</p></article>
+        </div>
+      </section>
+
+      <section id="contribution" class="impact-grid" aria-labelledby="contribution-title">
+        <div>
+          <h2 id="contribution-title" class="section-heading"><span>My role</span>From design to delivery</h2>
+          <p class="section-intro">The value of the project came from connecting user needs, distributed-systems design and operational delivery into one coherent platform.</p>
+        </div>
+        <div class="impact-cards">
+          <article><span class="impact-number">DESIGNED</span><h3>System shape and boundaries</h3><p>Defined the writer/reader split, the Redis state model, the Kafka flows and the safety boundaries that make consistency and failure behaviour explicit.</p></article>
+          <article><span class="impact-number">BUILT</span><h3>Services and user-facing workflows</h3><p>Built Python and FastAPI services, the locate endpoints and the operational interface that turns inventory state into a usable front-office workflow.</p></article>
+          <article><span class="impact-number">IMPROVED</span><h3>Performance and observability</h3><p>Replaced expensive access patterns with targeted queries, introduced heartbeat-gated reads and expanded monitoring to support faster diagnosis.</p></article>
+          <article><span class="impact-number">LED</span><h3>Delivery in production</h3><p>Connected architecture, implementation and operational readiness so the platform could be delivered as a dependable service rather than a standalone prototype.</p></article>
         </div>
       </section>
 

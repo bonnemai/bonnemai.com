@@ -431,6 +431,10 @@ main > section {
   overflow: hidden;
 }
 
+.project-card-last {
+  order: 99;
+}
+
 .project-card::before {
   content: '';
   position: absolute;
